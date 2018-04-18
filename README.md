@@ -24,3 +24,6 @@ You can use your own settings, fonts and themes. Cool!
 
 ## Downloads
 You can download it by releases.
+
+## LICENSE
+MIT
