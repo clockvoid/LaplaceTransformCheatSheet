@@ -1,0 +1,225 @@
+\documentclass[a4paper, 12pt]{jsarticle}
+
+\usepackage{mathptmx}
+
+\begin{document}
+
+\title{ラプラス変換チートシート}
+\author{基礎}
+\maketitle
+
+ラプラス変換の定義は，以下のようになされる．
+\begin{eqnarray*}
+    \mathcal{L} \left[f(t)\right] = F(s) = \int_0^\infty f(t) \exp(-st) dt
+\end{eqnarray*}
+
+\begin{table}[htbp]
+    \centering
+    \caption{ラプラス変換表}
+    \label{figure}
+    \begin{tabular}{ccc} \hline
+        $f(t)$ & $F(s)$ & 備考 \\ \hline
+        $\delta(t)$ & 1 & 単位インパルス関数 \\
+        $1$    & $\frac1s$ &  単位ステップ関数 \\
+        $t$    & $\frac1{s^2}$ & 単位ランプ関数 \\
+        $t^n$ & $\frac{n!}{s^{n+1}}$ & \\
+        $e^{at}$ & $\frac1{s-a}$ & $\exp(at)$のラプラス変換 \\
+        $\sin \omega t$ & $\frac{\omega}{s^2+\omega^2}$ & $\sin \omega t$のラプラス変換 \\
+        $\cos \omega t$ & $\frac{s}{s^2+\omega^2}$ & $\cos \omega t$のラプラス変換 \\
+        $e^{at} \sin \omega t$ & $\frac{\omega}{(s-a)^2 + \omega^2}$ & \\
+        $e^{at} \cos \omega t$ & $\frac{s}{(s-a)^2 + \omega^2}$ & \\
+        $f'(t)$ & $sF(s) - f(0)$ & 導関数のラプラス変換 \\
+        $\int_0^t f(t) dt$ & $\frac1s F(s) + \frac1s \left| \int f(t) dt \right|_{t = 0}$ & 原始関数のラプラス変換 \\
+        $f(t-L)$ & $\exp(-sL)F(s)$ & むだ時間要素のラプラス変換 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\section{単位インパルス関数のラプラス変換}
+単位インパルス関数$\delta(t)$は次のような性質を持つ．
+\begin{eqnarray}
+\delta(t) = \infty, t &=& 0 \\ \nonumber
+= 0, t &\neq& 0 \\
+\int_{-\infty}^\infty \delta(t) dt &=& 1 \\
+\int_{-\infty}^\infty f(t) \delta(t - a) dt &=& f(a)
+\end{eqnarray}
+
+第三式については，$t=a$のときは，デルタ関数の部分は1になり，それ以外は0なので，$f(a)$のみが残留することを示している．
+
+\par
+
+ここで，このような関数のラプラス変換を考えると，第三式の結果を用いれば非常に簡単に，
+
+\begin{eqnarray}
+\mathcal{L} [\delta(t)] &=& \int_0^\infty \delta(t) \exp(-st)dt \\ \nonumber
+&=& \exp(0) = 1
+\end{eqnarray}
+
+を得る． 
+
+\section{単位ステップ関数のラプラス変換}
+\begin{eqnarray}
+\mathcal{L} [u(t)] &=& \int_0^\infty u(t) \exp(-st) dt  \\ \nonumber
+&=& \int_0^\infty \exp(-st)dt = \left[-\frac1s \exp(-st)\right]_0^\infty \\ \nonumber
+&=& \frac1s - \lim_{t\rightarrow \infty} \frac{\exp(-st)}{s}
+\end{eqnarray}
+
+$Re[s] > 0$のときにのみ，
+
+\begin{eqnarray}
+\lim_{t\rightarrow \infty} \frac{\exp(-st)}{s} = 0.
+\end{eqnarray}
+
+したがって，この場合のみであるが，
+
+\begin{eqnarray}
+\mathcal{L} [u(t)] = \frac1s
+\end{eqnarray}
+
+を得る．
+
+\section{単位ランプ関数のラプラス変換}
+\begin{eqnarray}
+\mathcal{L}[t] &=& \int_0^\infty t \exp(-st)dt = \left[t(-\frac1s \exp(-st))\right]_0^\infty - \int_0^\infty \left(- \frac1s \exp(-st)\right) dt \\ \nonumber
+&=& 0 + \frac1s \int_0^\infty \exp(-st) dt = \frac1{s^2}
+\end{eqnarray}
+
+を得る．ただし，部分積分の公式，
+
+\begin{eqnarray}
+\int f(x)g'(x) = f(x)g(x) - \int f'(x)g(x) dx
+\end{eqnarray}
+
+を用いた．
+
+\section{$\exp(at)$のラプラス変換}
+単純に定義式に代入し，
+
+\begin{eqnarray}
+    \mathcal{L}[\exp(at)] &=& \int_0^\infty \exp(at)\exp(-st)dt \\ \nonumber
+&=& \int_0^\infty \exp(-(-a + s)t) dt \\ \nonumber
+&=& \left[-\frac{1}{a+s} \exp(-(s-a)t)\right]_0^\infty \\ \nonumber
+&=& 0 - \left[-\frac{1}{-a + s} \exp(1)\right] \\ \nonumber
+&=& \frac{1}{s - a}
+\end{eqnarray}
+
+を得る．
+
+\section{$\exp(jat)$のラプラス変換}
+ここで，次に三角関数のラプラス変換を扱うために，その下準備として，$\exp(jat),\exp(-jat)$のラプラス変換について扱う．
+\par
+上セクションと同様にして，
+
+\begin{eqnarray}
+    \mathcal{L}[\exp(-at)] = \frac{1}{s - ja}
+\end{eqnarray}
+
+を得る．
+
+\section{$\exp(-jat)$のラプラス変換}
+上セクションと同様にして，
+
+\begin{eqnarray}
+    \mathcal{L}[\exp(-at)] = \frac{1}{s + ja}
+\end{eqnarray}
+
+を得る．
+
+\section{$sin \omega t$のラプラス変換}
+オイラーの公式を用いる方法が最も楽である．
+\begin{eqnarray}
+    \sin \omega t = \frac{1}{2j}(\exp(j \omega t) - \exp(-j \omega t)), \,\,\, because \,\, of \,\, Euler's \, formula.
+\end{eqnarray}
+
+上で求めた結果を用いれば，
+\begin{eqnarray}
+    \mathcal{L}[\sin \omega t] &=& \frac{1}{2j} \left(\frac{1}{s-j \omega} - \frac{1}{s+j \omega}\right) \\ \nonumber
+&=& \frac{a}{s^2+ \omega ^2}
+\end{eqnarray}
+
+\section{$\cos \omega t$のラプラス変換}
+$\sin$のときと同様に行えば良い．
+\begin{eqnarray}
+\cos \omega t = \frac12 (\exp(j \omega t) + \exp(-j \omega t)), \,\,\, because \,\, of \,\, Euler's \, formula.
+\end{eqnarray}
+
+\begin{eqnarray}
+    \mathcal{L}[\cos \omega t] &=& \frac12 \left(\frac{1}{s-j \omega} + \frac{1}{s+j \omega} \right) \\ \nonumber
+&=& \frac12 \frac{s + j \omega + s - j \omega}{s^2+ \omega ^2} \\ \nonumber
+&=& \frac{s}{s^2+ \omega ^2}
+\end{eqnarray}
+
+を得る．
+
+\section{$f(t)$の導関数のラプラス変換}
+\begin{eqnarray}
+\mathcal{L} \left[\frac{df(t)}{dt}\right] &=& \int_0^\infty \frac{df(t)}{dt} \exp(-st) dt \\ \nonumber
+&=& \left[f(t) \exp(-st)\right]_0^\infty - (-s) \int_0^\infty f(t) \exp(-st) dt
+\end{eqnarray}
+
+定義に立ち返り，
+
+\begin{eqnarray}
+F(s) = \int_0^\infty f(t) \exp(-st) dt
+\end{eqnarray}
+
+として最後の一項を留め置いて，
+
+\begin{eqnarray}
+\mathcal{L}\left[\frac{df(t)}{dt}\right] &=& 0 - f(0) \exp(0) + sF(s) \\ \nonumber
+&=& sF(s) - f(0)
+\end{eqnarray}
+
+を得る．ただし，$f(0)$は$f(t)$の初期値である．
+
+\section{$f(t)$の積分のラプラス変換}
+\begin{eqnarray}
+\mathcal{L} \left[\int_0^t f(t) dt\right] &=& \int_0^\infty \left\{\int_0^t f(\tau) d\tau\right\} \exp(-st) dt \\ \nonumber
+&=& \left[-\frac1s\exp(-st) + \int_0^t f(\tau) d\tau\right]_0^\infty + \frac1s \int_0^\infty f(t) \exp(-st) dt
+\end{eqnarray}
+
+ただし，
+
+\begin{eqnarray}
+    \frac{d}{d\tau} \left\{\int_0^t f(\tau) d\tau\right\} = f(t)
+\end{eqnarray}
+
+を用いた．また，微分のときと同様にして，
+
+\begin{eqnarray}
+F(s) = \int_0^\infty f(t) \exp(-st) dt
+\end{eqnarray}
+
+で留め置くと，
+
+\begin{eqnarray}
+    \mathcal{L} \left[\int_0^t f(t) dt\right] = \frac1s F(s) + \frac1s \left| \int f(t) dt \right|_{t = 0}
+\end{eqnarray}
+
+を得る．
+
+ここで得られるこことして，微分したり，積分したりしたものをラプラス変換すると，上記のようにすべて$s$の関数として表記できるようになるため，$t$が混じってこず，ここの部分でラプラス変換の定義は優秀と見ることができるだろう．
+
+\section{むだ時間要素のラプラス変換}
+表で示したとおり，$f(x-L)$のような，入力に対して出力が現れるまでの時間$L$をむだ時間と呼び，制御工学でよく扱う．私がこのような関数を目にしたのは制御工学だけでだが，それ以外でもこの形のラプラス変換をする必要があるかもしれないので，抑えておきたい．
+\par
+定義式に代入すると，$0 < t < L$の区間は無意味であるので，積分区間を変更する必要があることに気づく．
+
+\begin{eqnarray}
+    \mathcal{L} \left[f(t-L)\right] &=& \int_0^\infty f(t-L) \exp(-st) dt \\ \nonumber
+&=& \int_L^\infty f(t - L) \exp(-st) dt
+\end{eqnarray}
+
+ここで，変数変換，$\tau' = t-L$ を導入すし，上でも行ったように$F(s)$で留め置くと，
+
+\begin{eqnarray}
+    \mathcal{L}[f(t-L)] &=& \int_0^{\infty-L} f(\tau') \exp(-s(\tau' + L)) d\tau', \,\,\, because \,\,\, d\tau' = dt \\ \nonumber
+&=& \exp(-sL) \int_0^\infty f(\tau')\exp(-s\tau') d\tau', \,\,\, because \,\,\, L << \infty \\ \nonumber
+&=& \exp(-sL)F(s).
+\end{eqnarray}
+
+を得る．
+
+\end{document}
