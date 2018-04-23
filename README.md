@@ -7,7 +7,7 @@ This is a cheat sheetf for Laplace Transform.
 Usually, tables of Laplace Transform are uncool, ugly and not proofs.
 This is a crisis for Engineering. 
 
-Actually, almost all of exparts of Engineering cannot use TeX and do'nt know proofs of Laplace Transform formula.
+Actually, almost all of students of Engineering cannot use TeX and do'nt know proofs of Laplace Transform formula.
 
 Now, I make this cheat sheet because of these reasons.
 
